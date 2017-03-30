@@ -14,11 +14,11 @@ public class QuickLoggerGrepTest extends TestCase {
 	public void testProcess() {
 		try {
 			QuickLoggerGrep qlg = new QuickLoggerGrep();
-			String basePath = "C:\\Users\\f0fp352\\Desktop\\Jira\\TRUCKS-1681\\logs\\";
-			String targetPath = "C:\\Users\\f0fp352\\Desktop\\Jira\\TRUCKS-1681\\grepped-logs\\";
+			String basePath = "C:\\temp\\logs\\";
+			String targetPath = "C:\\temp\\logs\\grepped-logs\\";
 
-			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "96277A");
-			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "EPEP.PERSISTENCE.ESKOORD.MD17.0001");
+			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log entry");
+			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log Entry Exact");
 
 			qlg.process(basePath, targetPath);
 
