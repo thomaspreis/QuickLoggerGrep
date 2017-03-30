@@ -18,7 +18,7 @@ public class QuickLoggerGrepTest extends TestCase {
 			String targetPath = "C:\\temp\\logs\\grepped-logs\\";
 
 			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log entry");
-			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log Entry Exact");
+			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_EQUAL_CASE, "Log Entry Exact");
 
 			qlg.process(basePath, targetPath);
 
