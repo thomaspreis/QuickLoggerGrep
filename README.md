@@ -5,13 +5,17 @@ It helps to quickly read log files from a source folder grepping it to a new fil
 
 In the source test folder there is a class: net.thomaspreis.tools.qlg.QuickLoggerGrepTest, we need simply to define some items:
  
-#### Origin path (where the full logs are located)
+#### Origin path (where the complete logs files are located)
 String basePath = "C:\\temp\\logs\\";
 #### Target path (where the generated and grepped files will be created)
 String targetPath = "C:\\temp\\logs\\grepped-logs\\";
 
 #### Expressions to do the grep must be included
-qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log entry");
-qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_EQUAL_CASE, "Log Entry Exact");
+// String indexof ignore case
+quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "GROUp cache for application");
+// String indexof equals case
+quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_EQUAL_CASE, "FILESYSTEM");
+// Regular Expression (date)
+quickLoggerGrep.addExpression(QLGExpressionEnum.REGULAR_EXPRESSION, "\\d{4}-\\d{2}-\\d{2}");
 
 Just perform the "QuickLoggerGrepTest" and enjoy it!

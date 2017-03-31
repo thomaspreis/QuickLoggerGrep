@@ -14,11 +14,12 @@ public class QuickLoggerGrepTest extends TestCase {
 	public void testProcess() {
 		try {
 			QuickLoggerGrep quickLoggerGrep = new QuickLoggerGrep();
-			String basePath = "C:\\temp\\logs\\";
+			String basePath = "C:\\temp\\logs\\source\\";
 			String targetPath = "C:\\temp\\logs\\grepped-logs\\";
 
-			quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log entry");
-			quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_EQUAL_CASE, "Log Entry Exact");
+			quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "GROUp cache for application");
+			quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_EQUAL_CASE, "FILESYSTEM");
+			quickLoggerGrep.addExpression(QLGExpressionEnum.REGULAR_EXPRESSION, "\\d{4}-\\d{2}-\\d{2}");
 
 			quickLoggerGrep.process(basePath, targetPath);
 
