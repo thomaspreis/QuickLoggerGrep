@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 import net.thomaspreis.tools.qlg.exp.QLGExpressionEnum;
 import net.thomaspreis.tools.qlg.exp.QLGExpressionException;
 import net.thomaspreis.tools.qlg.exp.QLGExpressionFactory;
+import net.thomaspreis.tools.qlg.exp.QLGExpressionOperatorEnum;
+import net.thomaspreis.tools.qlg.exp.QLGExpressionSet;
 import net.thomaspreis.tools.qlg.helper.FileHelper;
 
 public class QuickLoggerGrep {
@@ -115,9 +117,15 @@ public class QuickLoggerGrep {
 		}
 	}
 
-	public final void addExpression(QLGExpressionEnum expType, String value)
+	public final void addExpression(QLGExpressionSet expSet) throws InstantiationException, IllegalAccessException {
+		this.qlgExpressionFactory.add(expSet);
+	}
+
+	public final void addExpression(QLGExpressionEnum expType, String value, QLGExpressionOperatorEnum operator)
 			throws InstantiationException, IllegalAccessException {
-		this.qlgExpressionFactory.add(expType, value);
+		QLGExpressionSet expSet = new QLGExpressionSet(operator);
+		expSet.add(expType, value);
+		this.qlgExpressionFactory.add(expSet);
 	}
 
 	String getTargetFileName(String fileName) {
