@@ -13,14 +13,14 @@ public class QuickLoggerGrepTest extends TestCase {
 	@Test
 	public void testProcess() {
 		try {
-			QuickLoggerGrep qlg = new QuickLoggerGrep();
+			QuickLoggerGrep quickLoggerGrep = new QuickLoggerGrep();
 			String basePath = "C:\\temp\\logs\\";
 			String targetPath = "C:\\temp\\logs\\grepped-logs\\";
 
-			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log entry");
-			qlg.addExpression(QLGExpressionEnum.STRING_CONTAINS_EQUAL_CASE, "Log Entry Exact");
+			quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "Log entry");
+			quickLoggerGrep.addExpression(QLGExpressionEnum.STRING_CONTAINS_EQUAL_CASE, "Log Entry Exact");
 
-			qlg.process(basePath, targetPath);
+			quickLoggerGrep.process(basePath, targetPath);
 
 			assertTrue("Sucess!!", Boolean.TRUE);
 		} catch (Exception e) {

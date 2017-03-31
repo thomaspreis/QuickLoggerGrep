@@ -49,8 +49,6 @@ public class QuickLoggerGrep {
 
 		FileHelper fileHelper = new FileHelper(QuickLoggerGrep.logSuffix);
 		List<String> filesList = fileHelper.getLogsFiles(this.basePath);
-		this.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "96277A");
-		this.addExpression(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "EPEP.PERSISTENCE.ESKOORD.MD17.0001");
 
 		for (String sourceFileName : filesList) {
 			String targetFileName = this.getTargetFileName(sourceFileName);
