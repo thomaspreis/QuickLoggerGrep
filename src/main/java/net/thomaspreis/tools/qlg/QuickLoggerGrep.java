@@ -12,7 +12,9 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -39,6 +41,7 @@ public class QuickLoggerGrep {
 	long currentExecutionTime = 0l;
 	SimpleDateFormat sdf = null;
 	QLGExpressionFactory qlgExpressionFactory;
+	Set<String> generationResumeSet = new HashSet<>();
 
 	public QuickLoggerGrep() {
 		this.qlgExpressionFactory = new QLGExpressionFactory();
@@ -46,20 +49,44 @@ public class QuickLoggerGrep {
 
 	void process(String basePath, String targetPath)
 			throws InstantiationException, IllegalAccessException, IOException {
-		this.basePath = basePath;
-		this.targetPath = targetPath;
+		long t0 = System.currentTimeMillis();
+		try {
+			this.basePath = basePath;
+			this.targetPath = targetPath;
 
-		FileHelper fileHelper = new FileHelper(QuickLoggerGrep.logSuffix);
-		List<String> filesList = fileHelper.getLogsFiles(this.basePath);
+			FileHelper fileHelper = new FileHelper(QuickLoggerGrep.logSuffix);
+			List<String> filesList = fileHelper.getLogsFiles(this.basePath);
+			if (!filesList.isEmpty()) {
+				logger.info("Files found: " + filesList.size() + " staring the processing...");
+				for (String sourceFileName : filesList) {
+					String targetFileName = this.getTargetFileName(sourceFileName);
+					this.grep(sourceFileName, targetFileName);
+				}
 
-		for (String sourceFileName : filesList) {
-			String targetFileName = this.getTargetFileName(sourceFileName);
-			this.grep(sourceFileName, targetFileName);
+				for (String emptyPath : fileHelper.getEmptyFolders(this.targetCurrentExecutionPath)) {
+					new File(emptyPath).deleteOnExit();
+				}
+
+				printGenerationResume();
+			} else {
+				logger.warn("There is no files to be grepped");
+			}
+		} finally {
+			logger.info("Grepping process finished, time spent: " + (System.currentTimeMillis() - t0) + " ms.");
 		}
+	}
 
-		for (String emptyPath : fileHelper.getEmptyFolders(this.targetCurrentExecutionPath)) {
-			new File(emptyPath).deleteOnExit();
+	void printGenerationResume() {
+		logger.info("--------------");
+		logger.info("Process summary:");
+		if (!generationResumeSet.isEmpty()) {
+			for (String logEntry : generationResumeSet) {
+				logger.info(logEntry);
+			}
+		} else {
+			logger.warn("No information found in the files");
 		}
+		logger.info("--------------");
 	}
 
 	void reset() {
@@ -104,6 +131,8 @@ public class QuickLoggerGrep {
 					}
 				} else {
 					logger.info("Target file written: " + targetFileName);
+					generationResumeSet
+							.add("Total Entries found: " + totalFound + ", file: " + targetFileName);
 				}
 				logger.info("Finishing processing file, time: " + (System.currentTimeMillis() - t0) + " ms");
 			}
