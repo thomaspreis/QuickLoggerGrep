@@ -131,8 +131,7 @@ public class QuickLoggerGrep {
 					}
 				} else {
 					logger.info("Target file written: " + targetFileName);
-					generationResumeSet
-							.add("Total Entries found: " + totalFound + ", file: " + targetFileName);
+					generationResumeSet.add("Total Entries found: " + totalFound + ", file: " + targetFileName);
 				}
 				logger.info("Finishing processing file, time: " + (System.currentTimeMillis() - t0) + " ms");
 			}
@@ -142,6 +141,15 @@ public class QuickLoggerGrep {
 			}
 			if (null != bufferedReader) {
 				bufferedReader.close();
+			}
+		}
+	}
+
+	public final void addExpression(List<QLGExpressionSet> expSetList)
+			throws InstantiationException, IllegalAccessException {
+		if (!expSetList.isEmpty()) {
+			for (QLGExpressionSet expSet : expSetList) {
+				this.qlgExpressionFactory.add(expSet);
 			}
 		}
 	}

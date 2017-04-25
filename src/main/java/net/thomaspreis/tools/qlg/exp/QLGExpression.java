@@ -1,9 +1,16 @@
 package net.thomaspreis.tools.qlg.exp;
 
+import java.io.Serializable;
+
 /**
  * QLGExpression
  */
-public abstract class QLGExpression {
+public abstract class QLGExpression implements Serializable {
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 3138730466514429743L;
 	
 	private String value;
 

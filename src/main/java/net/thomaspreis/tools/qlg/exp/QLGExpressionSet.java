@@ -1,13 +1,19 @@
 package net.thomaspreis.tools.qlg.exp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * QLGExpressionSet
  */
-public class QLGExpressionSet {
+public class QLGExpressionSet implements Serializable {
 
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 7710122135907784208L;
+	
 	private List<QLGExpression> expressionList;
 	private QLGExpressionOperatorEnum operator;
 
