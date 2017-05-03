@@ -4,7 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class FileHelper {
+	
+	Logger logger = Logger.getLogger(FileHelper.class);
 
 	private String logSuffix;
 
@@ -15,7 +19,11 @@ public class FileHelper {
 	public List<String> getLogsFiles(String path) {
 		List<String> filesList = new ArrayList<>();
 		File fileBase = new File(path);
-		addLogsFiles(fileBase, filesList);
+		if (fileBase.exists()) {
+			addLogsFiles(fileBase, filesList);
+		} else {
+			logger.error("The directory: '" + path + "' does not exists");
+		}
 		return filesList;
 	}
 
