@@ -23,7 +23,8 @@ public class QuickLoggerGrepTest extends TestCase {
 			String targetPath = "C:\\temp\\logs\\grepped-logs\\";
 
 			// Expression set - Operator AND to be used between the expressions
-			QLGExpressionSet expSet1 = new QLGExpressionSet(QLGExpressionOperatorEnum.AND);
+			QLGExpressionSet expSet1 = new QLGExpressionSet();
+			expSet1.setOperator(QLGExpressionOperatorEnum.AND);
 			// Expression 1 - Line contains the String 'cache' - ignore case
 			expSet1.add(QLGExpressionEnum.STRING_CONTAINS_IGNORE_CASE, "cache");
 			// Expression 2 - Line contains the String '[INFO]' - case sensitive

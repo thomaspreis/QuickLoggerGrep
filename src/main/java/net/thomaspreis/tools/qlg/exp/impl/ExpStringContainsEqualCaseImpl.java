@@ -6,6 +6,11 @@ import net.thomaspreis.tools.qlg.exp.QLGExpression;
 
 public class ExpStringContainsEqualCaseImpl extends QLGExpression {
 
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -7021392282687179625L;
+
 	@Override
 	public boolean isValid(String line) {
 		if (!StringUtils.isEmpty(line)) {

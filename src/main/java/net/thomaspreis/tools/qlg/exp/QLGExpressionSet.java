@@ -13,12 +13,12 @@ public class QLGExpressionSet implements Serializable {
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 7710122135907784208L;
-	
+
 	private List<QLGExpression> expressionList;
 	private QLGExpressionOperatorEnum operator;
 
-	public QLGExpressionSet(QLGExpressionOperatorEnum operator) {
-		this.operator = operator;
+	public QLGExpressionSet() {
+		this.operator = QLGExpressionOperatorEnum.OR;
 		this.expressionList = new ArrayList<>();
 	}
 

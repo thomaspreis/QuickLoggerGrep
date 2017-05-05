@@ -46,6 +46,14 @@ public class QuickLoggerGrep {
 	public QuickLoggerGrep() {
 		this.qlgExpressionFactory = new QLGExpressionFactory();
 	}
+	
+
+	void process(QuickLoggerGrepConfig qlgc) throws InstantiationException, IllegalAccessException, IOException {
+		for (QLGExpressionSet expSet : qlgc.getExpressionSetList()) {
+			this.addExpression(expSet);
+		}
+		this.process(qlgc.getBasePath(), qlgc.getTargetPath());
+	}
 
 	void process(String basePath, String targetPath)
 			throws InstantiationException, IllegalAccessException, IOException {
@@ -160,7 +168,8 @@ public class QuickLoggerGrep {
 
 	public final void addExpression(QLGExpressionEnum expType, String value, QLGExpressionOperatorEnum operator)
 			throws InstantiationException, IllegalAccessException {
-		QLGExpressionSet expSet = new QLGExpressionSet(operator);
+		QLGExpressionSet expSet = new QLGExpressionSet();
+		expSet.setOperator(operator);
 		expSet.add(expType, value);
 		this.qlgExpressionFactory.add(expSet);
 	}

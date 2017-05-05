@@ -6,6 +6,11 @@ import net.thomaspreis.tools.qlg.exp.QLGExpression;
 
 public class ExpRegularExpressionImpl extends QLGExpression {
 
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 65984333011835641L;
+	
 	private Pattern pattern = null;
 
 	@Override
