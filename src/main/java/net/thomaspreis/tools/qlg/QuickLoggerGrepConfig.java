@@ -42,4 +42,10 @@ public class QuickLoggerGrepConfig {
 	public void setExpressionSetList(List<QLGExpressionSet> expressionSetList) {
 		this.expressionSetList = expressionSetList;
 	}
+
+	@Override
+	public String toString() {
+		return "QuickLoggerGrepConfig [basePath=" + basePath + ", targetPath=" + targetPath + ", expressionSetList="
+				+ expressionSetList + "]";
+	}
 }

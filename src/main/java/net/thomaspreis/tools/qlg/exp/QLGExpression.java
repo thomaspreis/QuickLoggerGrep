@@ -12,7 +12,6 @@ public abstract class QLGExpression implements Serializable {
 	 */
 	private static final long serialVersionUID = 3138730466514429743L;
 	
-	
 	private String value;
 
 	public QLGExpression() {

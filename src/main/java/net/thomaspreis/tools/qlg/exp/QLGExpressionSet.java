@@ -14,26 +14,36 @@ public class QLGExpressionSet implements Serializable {
 	 */
 	private static final long serialVersionUID = 7710122135907784208L;
 
-	private List<QLGExpression> expressionList;
+	private List<QLGExpressionItem> expressionItemsList;
 	private QLGExpressionOperatorEnum operator;
 
 	public QLGExpressionSet() {
 		this.operator = QLGExpressionOperatorEnum.OR;
-		this.expressionList = new ArrayList<>();
+		this.expressionItemsList = new ArrayList<>();
 	}
 
 	public void add(QLGExpressionEnum expType, String value) throws InstantiationException, IllegalAccessException {
-		QLGExpression exp = expType.getInstance();
+		QLGExpressionItem exp = new QLGExpressionItem();
 		exp.setValue(value);
-		expressionList.add(exp);
+		exp.setExpressionEnum(expType);
+		expressionItemsList.add(exp);
 	}
 
-	public List<QLGExpression> getExpressionList() {
-		return expressionList;
-	}
-
-	public void setExpressionList(List<QLGExpression> expressionList) {
-		this.expressionList = expressionList;
+	public List<QLGExpression> getExpressionList() throws QLGExpressionException {
+		List<QLGExpression> expList = new ArrayList<>();
+		try {
+			if (null != expressionItemsList && !expressionItemsList.isEmpty()) {
+				for (QLGExpressionItem item : expressionItemsList) {
+					QLGExpression exp;
+					exp = item.getExpressionEnum().getInstance();
+					exp.setValue(item.getValue());
+					expList.add(exp);
+				}
+			}
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new QLGExpressionException("Error creating QLGExpression list", e);
+		}
+		return expList;
 	}
 
 	public QLGExpressionOperatorEnum getOperator() {
@@ -44,8 +54,16 @@ public class QLGExpressionSet implements Serializable {
 		this.operator = operator;
 	}
 
+	public List<QLGExpressionItem> getExpressionItemsList() {
+		return expressionItemsList;
+	}
+
+	public void setExpressionItemsList(List<QLGExpressionItem> expressionItemsList) {
+		this.expressionItemsList = expressionItemsList;
+	}
+
 	@Override
 	public String toString() {
-		return "QLGExpressionSet [expressionList=" + expressionList + ", operator=" + operator + "]";
+		return "QLGExpressionSet [expressionItemsList=" + expressionItemsList + ", operator=" + operator + "]";
 	}
 }

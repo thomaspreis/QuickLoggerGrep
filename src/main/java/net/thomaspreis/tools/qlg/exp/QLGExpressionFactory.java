@@ -49,7 +49,7 @@ public class QLGExpressionFactory {
 		return isValid;
 	}
 
-	private boolean isValidAndOperator(QLGExpressionSet expSet, String line) {
+	private boolean isValidAndOperator(QLGExpressionSet expSet, String line) throws QLGExpressionException {
 		int totValid = 0;
 		for (QLGExpression exp : expSet.getExpressionList()) {
 			if (exp.isValid(line)) {
@@ -59,7 +59,7 @@ public class QLGExpressionFactory {
 		return totValid == expSet.getExpressionList().size();
 	}
 
-	private boolean isValidOrOperator(QLGExpressionSet expSet, String line) {
+	private boolean isValidOrOperator(QLGExpressionSet expSet, String line) throws QLGExpressionException {
 		for (QLGExpression exp : expSet.getExpressionList()) {
 			if (exp.isValid(line)) {
 				return true;
